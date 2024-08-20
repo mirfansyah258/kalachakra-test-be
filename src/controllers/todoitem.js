@@ -20,4 +20,27 @@ module.exports = {
       return res.status(400).send(error)
     }
   },
+  getAllById: async (req, res) => {
+    const { id } = req.params
+    
+    try {
+      const detail = await TodoList.findByPk(id)
+      if (detail.get()) {
+        const data = await TodoItem.findAll({
+          where: {
+            activity_id: id
+          },
+          order: [
+            ['created_at', 'DESC']
+          ]
+        })
+
+        return res.send({ ...detail.get(), data })
+      }
+      return res.status(404).send({ error: `Todo Item with id ${id} is not found` })
+    } catch (error) {
+      console.error('getById error', error);
+      return res.status(400).send({ error })
+    }
+  },
 }

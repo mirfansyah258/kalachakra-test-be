@@ -4,5 +4,6 @@ const router = express.Router();
 
 // Define routes and map to controller methods
 router.post('/', todoitem.create);
+router.get('/:id', todoitem.getAllById);
 
 module.exports = router;
