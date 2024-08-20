@@ -75,4 +75,14 @@ module.exports = {
       return res.status(400).send(error)
     }
   },
+  delete: async (req, res) => {
+    const { id } = req.params
+    try {
+      await TodoItem.destroy({ where: { id } })
+      return res.send({})
+    } catch (error) {
+      console.error('delete error', error);
+      return res.status(400).send(error)
+    }
+  },
 }
