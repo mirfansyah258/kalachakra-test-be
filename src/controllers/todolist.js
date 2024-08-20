@@ -31,4 +31,15 @@ module.exports = {
       return res.status(400).send({ error })
     }
   },
+  create: async (req, res) => {
+    const { activity_name } = req.body
+    if (!activity_name) return res.status(400).send({ error: "Activity Name is required" })
+    try {
+      const data = await TodoList.create({ activity_name })
+      return res.status(201).send(data)
+    } catch (error) {
+      console.error('create error', error);
+      return res.status(400).send(error)
+    }
+  },
 }
