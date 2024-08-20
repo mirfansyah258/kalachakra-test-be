@@ -6,5 +6,6 @@ const router = express.Router();
 router.get('/', todolist.getAll);
 router.get('/:id', todolist.getById);
 router.post('/', todolist.create);
+router.put('/:id', todolist.update);
 
 module.exports = router;
