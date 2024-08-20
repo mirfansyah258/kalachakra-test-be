@@ -1,3 +1,4 @@
+const { Sequelize } = require("sequelize");
 const { TodoItem, TodoList } = require("../models");
 
 module.exports = {
@@ -41,6 +42,17 @@ module.exports = {
     } catch (error) {
       console.error('getById error', error);
       return res.status(400).send({ error })
+    }
+  },
+  check: async (req, res) => {
+    const { id } = req.params
+
+    try {
+      const data = await TodoItem.update({ is_active: Sequelize.literal('NOT is_active') }, { where: { id }, returning: true })
+      return res.send(data[1][0])
+    } catch (error) {
+      console.error('update error', error);
+      return res.status(400).send(error)
     }
   },
   update: async (req, res) => {
