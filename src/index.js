@@ -6,10 +6,9 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-
+const { db } = require('./config')
 // routing
 // const router = require('./routes/api')
-// app.use('/assets', express.static(path.join(__dirname, '/assets')))
 // app.use('/api', router)
 
 app.get('/test', (req, res) => {
